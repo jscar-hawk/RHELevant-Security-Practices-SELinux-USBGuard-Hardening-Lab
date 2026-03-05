@@ -362,7 +362,7 @@ Then on the screen will be a message that says something like.
 Your identification has been saved in /home/rhel/.ssh/id_rsa
 Your public key has been saved in /home/rhel/.ssh/id_rsa.pub
 The key fingerprint is:
-SHA256:5Z8GpqUSojEcZWvtspDVefI5YIVajUr3+HTVi3HcE+4 ec2-user@bastion.fnlng.internal
+SHA256:5Z8GpqUSojEcZWvtspDVefI5YIVajUr3+HTVi3HcE+4 rhel@bastion.fnlng.internal
 The key's randomart image is:
 +---[RSA 3072]----+
 |    o  +.    o o.|
@@ -403,7 +403,7 @@ authorized_keys  config   id_rsa  id_rsa.pub
 
 === 1.8 Push your public ssh Key to node1
 
-Now we want to send our public key to the  ec2-user on the node1 machine.
+Now we want to send our public key to the  rhel user on the node1 machine.
 
 
 [source,ini,role=execute,subs=attributes+]

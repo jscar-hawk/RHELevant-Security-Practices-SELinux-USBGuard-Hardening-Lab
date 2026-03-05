@@ -115,7 +115,7 @@ Move them to `/var/lib/libvirt/images`
 
 [source,ini,role=execute,subs=attributes+]
 ----
-sudo mv ~/Downloads/rhel-10.0-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-10.0-x86_64-kvm.qcow2
+sudo mv ~/Downloads/rhel-10.1-x86_64-kvm.qcow2 /var/lib/libvirt/images/rhel-10.1-x86_64-kvm.qcow2
 ----
 
 Then lets verify that the image is in the right location.
@@ -130,7 +130,7 @@ In your terminal
 
 [source,ini,role=execute,subs=attributes+]
 ----
-sudo cp /var/lib/libvirt/images/rhel-10.0-x86_64-kvm.qcow2 /var/lib/libvirt/images/bastion-rhel-10.0-x86_64-kvm.qcow2
+sudo cp /var/lib/libvirt/images/rhel-10.1-x86_64-kvm.qcow2 /var/lib/libvirt/images/bastion-rhel-10.1-x86_64-kvm.qcow2
 ----
 
 Next we will make a copy of the image and name it node1.
@@ -139,7 +139,7 @@ In your terminal
 
 [source,ini,role=execute,subs=attributes+]
 ----
-sudo cp /var/lib/libvirt/images/rhel-10.0-x86_64-kvm.qcow2 /var/lib/libvirt/images/node1-rhel-10.0-x86_64-kvm.qcow2
+sudo cp /var/lib/libvirt/images/rhel-10.1-x86_64-kvm.qcow2 /var/lib/libvirt/images/node1-rhel-10.1-x86_64-kvm.qcow2
 ----
 
 Then we will want to customize the kvm image with the following command.
@@ -156,9 +156,9 @@ Then set a root password into the image
 
 [source,ini,role=execute,subs=attributes+]
 ----
-sudo virt-customize -a /var/lib/libvirt/images/bastion-rhel-10.0-x86_64-kvm.qcow2 --root-password password:MySecurePassphrasefor2024 --uninstall cloud-init
+sudo virt-customize -a /var/lib/libvirt/images/bastion-rhel-10.1-x86_64-kvm.qcow2 --root-password password:MySecurePassphrasefor2026 --uninstall cloud-init
 
-sudo virt-customize -a /var/lib/libvirt/images/node1-rhel-10.0-x86_64-kvm.qcow2 --root-password password:MySecurePassphrasefor2024 --uninstall cloud-init
+sudo virt-customize -a /var/lib/libvirt/images/node1-rhel-10.1-x86_64-kvm.qcow2 --root-password password:MySecurePassphrasefor2026 --uninstall cloud-init
 ----
 
 
@@ -198,8 +198,8 @@ sudo virt-customize -a /var/lib/libvirt/images/node1-rhel-10.0-x86_64-kvm.qcow2 
 ** In the top Right side click the **Import VM**
 *** In the Name feild we want to use **bastion**
 *** On the Connections option we want to make sure that **System** is selected
-*** On the Disk image we want to use this path **/var/lib/libvirt/images/bastion-rhel-10.0-x86_64-kvm.qcow2**
-*** On Operation system choose Red Hat Enterprise Linux 10
+*** On the Disk image we want to use this path **/var/lib/libvirt/images/bastion-rhel-10.1-x86_64-kvm.qcow2**
+*** On Operation system choose Red Hat Enterprise Linux 10.1
 *** On Memory go with the default 2 GB of Ram
 *** Then Click the **Import and Run** 
 
@@ -210,7 +210,7 @@ Click on that node and you should see and Overview, Usage and Console window.
 Click on the Console window, and log in with your root user and password.
 
 username: root
-password: MySecurePassphrasefor2024
+password: MySecurePassphrasefor2026
 
 Then you will want to find out what the ip address is for bastion,
 In the console type
@@ -225,18 +225,18 @@ Take note of the IP address, then open a terminal on your **bastion** machine.
 
 You will also need to create a user to connect with over ssh since root is disabled since rhel 9.
 
-To keep usernames and permissions the same for the rest of the lab, we will set up a user called `ec2-user`
+To keep usernames and permissions the same for the rest of the lab, we will set up a user called `rhel`
 
 [source,ini,role=execute,subs=attributes+]
 ----
-useradd -m -g wheel ec2-user
+useradd -m -g wheel rhel
 ----
 
 and we will set a password 
 
 [source,ini,role=execute,subs=attributes+]
 ----
-passwd ec2-user
+passwd rhel
 
 LetMeIn1
 ----
@@ -259,8 +259,8 @@ reboot
 ** In the top Right side click the **Import VM**
 *** In the Name feild we want to use **node1**
 *** On the Connections option we want to make sure that **System** is selected
-*** On the Disk image we want to use this path **/var/lib/libvirt/images/node1-rhel-10.0-x86_64-kvm.qcow2**
-*** On Operation system choose Red Hat Enterprise Linux 9
+*** On the Disk image we want to use this path **/var/lib/libvirt/images/node1-rhel-10.1-x86_64-kvm.qcow2**
+*** On Operation system choose Red Hat Enterprise Linux 10.1
 *** On Memory go with the default 2 GB of Ram
 *** Then Click the **Import and Run** 
 
@@ -271,7 +271,7 @@ Click on that node and you should see and Overview, Usage and Console window.
 Click on the Console window, and log in with your root user and password.
 
 username: root
-password: MySecurePassphrasefor2024
+password: MySecurePassphrasefor2026
 
 Then you will want to find out what the ip address is for node1,
 In the console type
@@ -286,18 +286,18 @@ Take note of the IP address, then open a terminal on your **bastion** machine.
 
 You will also need to create a user to connect with over ssh since root is disabled by default in rhel 9.
 
-To keep usernames and permissions the same for the rest of the lab, we will set up a user called `ec2-user`
+To keep usernames and permissions the same for the rest of the lab, we will set up a user called `rhel`
 
 [source,ini,role=execute,subs=attributes+]
 ----
-useradd -m -g wheel ec2-user
+useradd -m -g wheel rhel
 ----
 
 and we will set a password 
 
 [source,ini,role=execute,subs=attributes+]
 ----
-passwd ec2-user
+passwd rhel
 
 LetMeIn1
 ----
@@ -323,7 +323,7 @@ You should see a prompt with your current username and the hostname of the machi
 
 [source,textinfo]
 ----
-[ec2-user@bastion ~]$
+[rhel@bastion ~]$
 ----
 
 
@@ -359,8 +359,8 @@ Then on the screen will be a message that says something like.
 
 <<< OUTPUT ABRIDGED >>>
 
-Your identification has been saved in /home/ec2-user/.ssh/id_rsa
-Your public key has been saved in /home/ec2-user/.ssh/id_rsa.pub
+Your identification has been saved in /home/rhel/.ssh/id_rsa
+Your public key has been saved in /home/rhel/.ssh/id_rsa.pub
 The key fingerprint is:
 SHA256:5Z8GpqUSojEcZWvtspDVefI5YIVajUr3+HTVi3HcE+4 ec2-user@bastion.fnlng.internal
 The key's randomart image is:
@@ -397,7 +397,7 @@ You should now see 2 new files called `id_rsa` and `id_rsa.pub`
 
 [source,textinfo]
 ----
-[ec2-user@bastion ~]$ ls ~/.ssh/
+[rhel@bastion ~]$ ls ~/.ssh/
 authorized_keys  config   id_rsa  id_rsa.pub
 ----
 
@@ -408,7 +408,7 @@ Now we want to send our public key to the  ec2-user on the node1 machine.
 
 [source,ini,role=execute,subs=attributes+]
 ----
-ssh-copy-id ec2-user@node1IPADDRESS
+ssh-copy-id rhel@node1IPADDRESS
 ----
 
 It should promopt you to enter the root password to the node1 machine.
@@ -421,7 +421,7 @@ You will want to test that bastion ssh key works to connect to your node1 machin
 
 [source,ini,role=execute,subs=attributes+]
 ----
-ssh ec2-user@node1IPADDRESS
+ssh rhel@node1IPADDRESS
 ----
 
 When you log in you should  now see
@@ -431,7 +431,7 @@ You should see a prompt with your current username and the hostname of the machi
 
 [source,textinfo]
 ----
-[ec2-use@node1 ~]$
+[rhel@node1 ~]$
 ----
 
 You can now exit the node machine by typing,
@@ -449,5 +449,5 @@ Now we are ready to step into the next section.
 
 [source,ini,role=execute,subs=attributes+]
 ----
-ssh ec2-user@localhost
+ssh rhel@localhost
 ----
